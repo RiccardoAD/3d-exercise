@@ -79,22 +79,92 @@ export type PageDocument<Lang extends string = string> =
 export type AllDocumentTypes = PageDocument;
 
 /**
- * Primary content in *RichText → Primary*
+ * Primary content in *Hero → Default → Primary*
  */
 export interface RichTextSliceDefaultPrimary {
   /**
-   * Content field in *RichText → Primary*
+   * Heading field in *Hero → Default → Primary*
    *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: Lorem ipsum...
-   * - **API ID Path**: rich_text.primary.content
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.heading
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
-  content: prismic.RichTextField;
+  heading: prismic.TitleField;
+
+  /**
+   * Subheading field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.subheading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  subheading: prismic.RichTextField;
+
+  /**
+   * Body field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Button text field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Button link field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField;
+
+  /**
+   * Cans imagine  field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.cans_imagine
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  cans_imagine: prismic.ImageField<never>;
+
+  /**
+   * Second Heading field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.second_heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  second_heading: prismic.TitleField;
+
+  /**
+   * Second Body field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.secon
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  secon: prismic.RichTextField;
 }
 
 /**
- * Default variation for RichText Slice
+ * Default variation for Hero Slice
  *
  * - **API ID**: `default`
  * - **Description**: RichText
@@ -107,12 +177,12 @@ export type RichTextSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Slice variation for *RichText*
+ * Slice variation for *Hero*
  */
 type RichTextSliceVariation = RichTextSliceDefault;
 
 /**
- * RichText Shared Slice
+ * Hero Shared Slice
  *
  * - **API ID**: `rich_text`
  * - **Description**: RichText
@@ -129,6 +199,17 @@ declare module "@prismicio/client" {
       repositoryNameOrEndpoint: string,
       options?: prismic.ClientConfig,
     ): prismic.Client<AllDocumentTypes>;
+  }
+
+  interface CreateWriteClient {
+    (
+      repositoryNameOrEndpoint: string,
+      options: prismic.WriteClientConfig,
+    ): prismic.WriteClient<AllDocumentTypes>;
+  }
+
+  interface CreateMigration {
+    (): prismic.Migration<AllDocumentTypes>;
   }
 
   namespace Content {
